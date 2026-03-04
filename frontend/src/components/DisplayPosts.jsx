@@ -1,6 +1,6 @@
 import { useState, useEffect, use} from "react";
 
-function DisplayPosts(refresh) {
+function DisplayPosts({refresh}) {
 
     const [posts, setPosts] = useState([]);
 
@@ -29,7 +29,8 @@ function DisplayPosts(refresh) {
     }
 
     return (
-
+        <>
+        </>
     )
 }
 

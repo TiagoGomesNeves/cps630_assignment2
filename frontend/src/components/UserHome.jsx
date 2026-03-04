@@ -4,10 +4,11 @@ import Nav from './Nav';
 function UserHome() {
     const location = useLocation();
     const username = location.state; 
+    console.log(username.username);
     
     return (
         <div >
-            <Nav username={username} />
+            <Nav username={username.username} />
         </div>
     );
 }
