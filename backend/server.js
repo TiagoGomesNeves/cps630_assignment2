@@ -35,11 +35,14 @@ default_Accounts = [
     {username: "TestAccount2", password: "ABCDEFG"}
 ];
 
+//Default Posts
 default_Posts =[
     {user: "Admin", content: "First Post on Platform", date: Date.now()},
     {user: "TestAccount1", content: "Second Post on Platform", date: Date.now()}
 ];
 
+
+// Adds Default Accounts to Database if not already added
 async function addDefaultAccounts(){
     const userCount = await User.countDocuments();
 
@@ -58,6 +61,8 @@ async function addDefaultAccounts(){
 };
 addDefaultAccounts();
 
+
+// Adds Default Posts to database if not already Added
 async function addDefaultPosts(){
     const postCount = await Post.countDocuments();
 
@@ -106,7 +111,7 @@ app.post('/api/user', express.json(), async (req, res) => {
     }
 });
 
-
+// Searches for user in database to login
 app.get('/api/user/search', async (req, res) => {
     const userName = req.query.username.toLowerCase();
     const userPass = req.query.password;
