@@ -27,6 +27,30 @@ db.on('error', function (e){
     console.log("Error on Connection: " + e);
 });
 
+// Default Accounts
+default_Accounts = [
+    {username: "Admin", password: "theLeafs"},
+    {username: "TestAccount1", password: "1234567"},
+    {username: "TestAccount2", password: "ABCDEFG"}
+]
+
+async function addDefaultAccounts(){
+    const userCount = await User.countDocuments();
+
+    if (userCount === 0 ){
+        default_Accounts.forEach(user => {
+            const newUser = new User(user);
+            newUser.save()
+                .then(() => console.log("User added with username: " + user.username))
+                .catch(err => console.error("Error has occured: " + err));
+        });
+
+    }else{
+        console.log("Users already exist, not adding");
+        return;
+    }
+};
+addDefaultAccounts();
 
 //API
 
