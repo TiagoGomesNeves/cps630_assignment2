@@ -1,15 +1,15 @@
 import { useLocation } from 'react-router-dom';
-import Nav from './Nav'
+import Nav from './Nav';
 
-function UserHome(){
+function UserHome() {
     const location = useLocation();
-    const { username } = location.state;
+    const username = location.state; 
     
-    return(
-        <>
-           
-        </>
-    )
+    return (
+        <div >
+            <Nav username={username} />
+        </div>
+    );
 }
 
 export default UserHome;
