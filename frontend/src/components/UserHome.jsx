@@ -4,6 +4,11 @@ function UserHome(){
     const location = useLocation();
     const { username } = location.state;
     
+    return(
+        <>
+        
+        </>
+    )
 }
 
 export default UserHome;
