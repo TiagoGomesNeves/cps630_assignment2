@@ -9,8 +9,7 @@ function UserPosts({ username }) {
             try {
                 const response = await fetch('/api/posts');
                 const result = await response.json();
-                
-                // Safety: Ensure result is an array before filtering
+
                 if (Array.isArray(result)) {
                     const filtered = result.filter(p => p.user === username);
                     setPosts(filtered);
