@@ -233,7 +233,7 @@ app.post('/api/comments', express.json(), async (req, res) => {
 // Creates a post
 app.post('/api/posts', upload.single('image'), async (req, res) => {
     const post = req.body;
-    const image = req.file;
+    const image = req.file?.filename;
     console.log("Here");
     if (!post.content || !post.user || !post.date){
         return res.status(400).json({error: "Need content, user and date"});
@@ -244,7 +244,7 @@ app.post('/api/posts', upload.single('image'), async (req, res) => {
         content: post.content,
         date: post.date,
         userpfp: post.userpfp,
-        image: image.filename
+        image: image
     }
 
     const addPost = new Post(newPost);

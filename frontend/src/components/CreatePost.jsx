@@ -36,6 +36,12 @@ function CreatePost({username}){
                 method: 'POST',
                 body: formData
             });
+
+            if (response.status() === 200){
+                alert("Post Added Successfully");
+            }else{
+                alert("No Post Added Somethinng went wrong");
+            }
         }catch(error){
             console.log("Error when creating post: ", error);
         }
