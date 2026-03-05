@@ -34,21 +34,35 @@ function DisplayPosts({refresh}) {
                 {posts.map(post => {
                     if (post.image){
                         return(
-                            <div className="Post-Card" key={post._id}>
-                                <div>
+                            <div className="post-card" key={post._id}>
+                               <div className="post-header">
+                                    <img 
+                                        src={`/images/${post.userpfp}`}
+                                        className="post-pfp"
+                                    />
+                                    <h3 className="post-username">{post.user}</h3>
+                                    <span className="post-date">{new Date(post.date).toLocaleDateString()}</span>
                                 </div>
-                                <p>{post.content}</p>
-                                <img src={`images/${post.image}`} />
-                                <p>{post.date}</p>
-                                <p>{post.user}</p>
+                                <div className="post-content">
+                                    <p>{post.content}</p>
+                                    <img src={`/images/${post.image}`} className="post-image"/>
+                                </div>
                             </div>
                         )
                     }else{
                         return(
-                            <div className="Post-Card" key={post._id}>
-                                <p>{post.content}</p>
-                                <p>{post.date}</p>
-                                <p>{post.user}</p>
+                            <div className="post-card" key={post._id}>
+                               <div className="post-header">
+                                    <img 
+                                        src={`/images/${post.userpfp}`}
+                                        className="post-pfp"
+                                    />
+                                    <h3 className="post-username">{post.user}</h3>
+                                    <span className="post-date">{new Date(post.date).toLocaleDateString()}</span>
+                                </div>
+                                <div className="post-content">
+                                    <p>{post.content}</p>
+                                </div>
                             </div>
                         )
                     }
