@@ -78,7 +78,9 @@ function DisplayPosts({refresh, username}) {
                                 </div>
                                 <div className="post-content">
                                     <p>{post.content}</p>
+                                    <div className="post-card-image"> 
                                     <img src={`/images/${post.image}`} className="post-image"/>
+                                    </div>
                                 </div>
                                 <hr></hr>
                                 <div className="post-footer">

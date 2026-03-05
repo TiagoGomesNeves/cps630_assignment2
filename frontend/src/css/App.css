@@ -58,7 +58,7 @@ img {
     margin: 0 0 16px 0;
     background-color: #111318;
     transition: border-color 0.2s;
-    max-width: 560px;
+    max-width: 500px;
     position: relative;
 }
 .post-card:hover {
@@ -104,6 +104,7 @@ img {
 }
 .post-footer {
     display: flex;
+    flex-direction: column;
     gap: 8px;
 }
 .profile-card {
@@ -187,4 +188,50 @@ img {
   padding: 8px 10px;
   color: #888;
   font-size: 14px;
+}
+
+.comment-section{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.comment{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.comment-content{
+    overflow: hidden;
+    word-break: break-word;
+    flex: 1;
+}
+
+.comment-user{
+  color: purple;
+}
+
+.comment-input input{
+    width: 90%;
+    height: 20px;
+}
+
+.comment-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  gap: 3px;
+}
+
+.no-comment-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-card-image{
+  display: flex;
+  justify-content: center;
 }
