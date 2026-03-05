@@ -2,12 +2,17 @@ import { Link } from "react-router-dom";
 
 function Homepage(){
     return (
-        <>
-            <h1>Welcome, Sign in or Sign up</h1>
-            <Link to="/login" className="link">Sign in</Link>
-            <Link to='/register' className="link">Sign Up</Link>
-        </>
-    );
-}
+        <div className="auth-page">
+        <div className="auth-card">
+            <h1 className="auth-title">Welcome</h1>
+            <p className="auth-subtitle">Sign in or create an account to continue</p>
 
+            <div className="auth-actions">
+            <Link to="/login" className="auth-link-btn">Sign in</Link>
+            <Link to="/register" className="auth-link-btn auth-link-secondary">  Sign up</Link>
+            </div>
+        </div>
+        </div>
+    );
+    }
 export default Homepage;

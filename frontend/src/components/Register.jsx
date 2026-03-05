@@ -49,35 +49,39 @@ function Register(){
             [e.target.name]: e.target.value
         });
     };
+    
+    
+    return (
+        <div className="auth-page">
+            <div className="auth-card">
+            <h2 className="auth-title">Create account</h2>
 
-    return(
+            <form className="auth-form" onSubmit={submission}>
+                <input
+                className="auth-input"
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                value={formData.username}
+                onChange={change}
+                required
+                />
 
-        <>
-            <div>
-                <h2>Enter a Username and Password</h2>
-                <form onSubmit={submission}>
-                    <input 
-                        type="text"
-                        name="username"
-                        placeholder='Enter Username'
-                        value={formData.username}
-                        onChange={change}
-                        required
-                    ></input>
-                    <input 
-                        type="password"
-                        name="password"
-                        placeholder='Enter password'
-                        value={formData.password}
-                        onChange={change}
-                        required
-                    ></input>
-                    <button type='Submit'>Create Account</button>
-                </form>
+                <input
+                className="auth-input"
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={change}
+                required
+                />
 
+                <button className="auth-btn" type="submit">Create account</button>
+            </form>
             </div>
-        </>
-    )
-}
+        </div>
+        );
+    }
 
 export default Register;
