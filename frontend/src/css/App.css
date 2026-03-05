@@ -68,3 +68,8 @@
     font-weight: 500;
     transition: color 0.3s;
 }
+
+img {
+  max-width: 300px;
+  max-height: 600px;
+}

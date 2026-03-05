@@ -8,7 +8,7 @@ function DisplayPosts({refresh}) {
         try{
             const response = await fetch('/api/posts');
             const result = await response.json();
-            setPosts(response);
+            setPosts(result);
         }catch (error){
             console.error("Error When Loading Posts" , error);
         }
@@ -30,6 +30,30 @@ function DisplayPosts({refresh}) {
 
     return (
         <>
+            <div className="postContainer">
+                {posts.map(post => {
+                    if (post.image){
+                        return(
+                            <div className="Post-Card" key={post._id}>
+                                <div>
+                                </div>
+                                <p>{post.content}</p>
+                                <img src={`images/${post.image}`} />
+                                <p>{post.date}</p>
+                                <p>{post.user}</p>
+                            </div>
+                        )
+                    }else{
+                        return(
+                            <div className="Post-Card" key={post._id}>
+                                <p>{post.content}</p>
+                                <p>{post.date}</p>
+                                <p>{post.user}</p>
+                            </div>
+                        )
+                    }
+                })}
+            </div>
         </>
     )
 }

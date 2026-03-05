@@ -22,6 +22,11 @@ const PostSchema = mongoose.Schema({
         type: Date,
         unique: false,
         required: true,
+    },
+    userpfp:{
+        type: String,
+        unique: false,
+        required: true
     }
 });
 

@@ -34,13 +34,13 @@ db.on('error', function (e){
 default_Accounts = [
     {username: "Admin", password: "theLeafs", pfp: "default.webp"},
     {username: "TestAccount1", password: "1234567", pfp: "default.webp"},
-    {username: "TestAccount2", password: "ABCDEFG", pfp: "defualt.webp"}
+    {username: "TestAccount2", password: "ABCDEFG", pfp: "default.webp"}
 ];
 
 //Default Posts
 default_Posts =[
-    {user: "Admin", content: "First Post on Platform", date: Date.now()},
-    {user: "TestAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now()}
+    {user: "Admin", content: "First Post on Platform", date: Date.now(), userpfp: "default.webp"},
+    {user: "TestAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now(), userpfp: "default.webp"}
 ];
 
 
@@ -136,6 +136,20 @@ app.get('/api/user/search', async (req, res) => {
     }
 });
 
+
+app.get('/api/posts', async (req, res) => {
+    const randomPosts = await Post.aggregate([
+        { $sample: {size: 10}}
+    ]);
+
+    console.log(randomPosts);
+
+    if (randomPosts.length === 0){
+        return res.status(404).json({error: "No posts Found"});
+    }
+
+    return res.status(200).json(randomPosts);
+});
 
 
 app.listen(PORT, () => {console.log("Server started on port: " + PORT)});
