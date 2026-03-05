@@ -7,7 +7,6 @@ function UserHome() {
     const [refresh, setRefresh] = useState(false);
     const location = useLocation();
     const username = location.state; 
-    console.log(username.username);
 
     const changePosts = () => {
         setRefresh(prev => !prev)
@@ -16,7 +15,7 @@ function UserHome() {
     return (
         <>
             <Nav username={username.username} />
-            <DisplayPosts refresh={refresh} />
+            <DisplayPosts refresh={refresh} username={username.username}/>
             <button onClick={changePosts}></button>
         </>
     );

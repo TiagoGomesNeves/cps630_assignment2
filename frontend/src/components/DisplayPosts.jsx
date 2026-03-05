@@ -1,8 +1,18 @@
 import { useState, useEffect, use} from "react";
+import ShowComments from "./ShowComments";
 
-function DisplayPosts({refresh}) {
+function DisplayPosts({refresh, username}) {
 
     const [posts, setPosts] = useState([]);
+    const [comments, setComments] = useState(false);
+
+    const toggleComments = (id) => {
+        if (comments === id) {
+            setComments(null);
+        } else {
+            setComments(id);
+        }
+    };
 
     const loadPosts = async () => {
         try{
@@ -47,6 +57,11 @@ function DisplayPosts({refresh}) {
                                     <p>{post.content}</p>
                                     <img src={`/images/${post.image}`} className="post-image"/>
                                 </div>
+                                <hr></hr>
+                                <div className="post-footer">
+                                    <button onClick={() => toggleComments(post._id)}>Comments</button>
+                                    {comments === post._id && <ShowComments id={post._id} username={username}/>}
+                                </div>
                             </div>
                         )
                     }else{
@@ -62,6 +77,11 @@ function DisplayPosts({refresh}) {
                                 </div>
                                 <div className="post-content">
                                     <p>{post.content}</p>
+                                </div>
+                                <hr></hr>
+                                <div className="post-footer">
+                                    <button onClick={() => toggleComments(post._id)}>Comments</button>
+                                    {comments === post._id && <ShowComments id={post._id} username={username}/>}
                                 </div>
                             </div>
                         )
