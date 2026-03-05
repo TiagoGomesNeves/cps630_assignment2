@@ -156,10 +156,9 @@ app.get('/api/user/search', async (req, res) => {
     try{
         const user = await User.findOne({username: userName, password: userPass});
         if (user){
-            console.log("User Found");
             return res.status(200).json(user);
         }else{
-            return res.status(401).json({error: "User not Found"});
+            return res.status(404).json({error: "User not Found"});
         }
     }catch (error){
         return res.status(500).json({ error: "Failed to find user" });
@@ -217,6 +216,54 @@ app.post('/api/comments', express.json(), async (req, res) => {
 
 });
 
+// Creates a post
+app.post('/api/posts', upload.single('image'), async (req, res) => {
+    const post = req.body;
+    const image = req.file;
+    console.log("Here");
+    if (!post.content || !post.user || !post.date){
+        return res.status(400).json({error: "Need content, user and date"});
+    }
 
+    const newPost = {
+        user: post.user,
+        content: post.content,
+        date: post.date,
+        userpfp: post.userpfp,
+        image: image.filename
+    }
+
+    const addPost = new Post(newPost);
+    try {
+            await addPost.save();
+            console.log("Post added successfully");
+            return res.status(201).json(addPost);
+        } catch (err) {
+            console.error("Error adding post: " + err);
+            return res.status(500).json({ error: "Failed to save post" });
+    
+        }
+});
+
+// Finds a user based on username
+app.get('/api/user', async (req, res) =>{
+    const username = req.query.username.toLowerCase();
+
+    if (!username){
+        return res.status(400).json({error: "Need username"});
+    }
+
+     try{
+        const user = await User.findOne({username: username});
+        if (user){
+            return res.status(200).json(user);
+        }else{
+            return res.status(404).json({error: "User not Found"});
+        }
+    }catch (error){
+        return res.status(500).json({ error: "Failed to find user" });
+    }
+
+});
 
 app.listen(PORT, () => {console.log("Server started on port: " + PORT)});

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from 'react-router-dom';
 import "../css/SearchPage.css";
 import Nav from "../components/Nav";
 
@@ -7,10 +8,13 @@ function SearchPage() {
   const [sortOrder, setSortOrder] = useState("newest");
   const [results, setResults] = useState([]);
 
+  const location = useLocation();
+  const username = location.state; 
+
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/posts?search=${searchTerm}&sort=${sortOrder}`
+        `/api/posts?search=${searchTerm}&sort=${sortOrder}`
       );
 
       const data = await response.json();
@@ -22,7 +26,7 @@ function SearchPage() {
 
   return (
     <>
-      <Nav />
+      <Nav username={username.username}/>
       <div className="search-container">
         <div className="search-card">
 

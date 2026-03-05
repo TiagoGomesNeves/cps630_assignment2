@@ -54,6 +54,7 @@ function ShowComments({id, username}){
                         placeholder="Write a comment..."
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
+                        required
                     />
                     <button onClick={addComment}>Post</button>
                 </div>
@@ -79,6 +80,7 @@ function ShowComments({id, username}){
                     placeholder="Write a comment..."
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
+                    required
                 />
                 <button onClick={addComment}>Post</button>
             </div>
