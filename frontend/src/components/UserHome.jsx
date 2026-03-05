@@ -15,8 +15,10 @@ function UserHome() {
     return (
         <>
             <Nav username={username.username} />
+            <br></br>
+            <br></br>
             <DisplayPosts refresh={refresh} username={username.username}/>
-            <button onClick={changePosts}></button>
+            <button onClick={changePosts}>New Posts</button>
         </>
     );
 }
