@@ -5,9 +5,9 @@ import UserPosts from './UserPosts';
 
 function Profile() {
     const location = useLocation();
-    const username = location.state?.username; 
+    const username = location.state?.username;
     const [pfp, setPfp] = useState("");
-
+    
     useEffect(() => {
         if (username) {
             fetch(`/api/user/pfp/${username}`)

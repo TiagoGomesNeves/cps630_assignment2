@@ -43,33 +43,36 @@ function Login(){
         });
     };
 
-    return(
+    return (
+        <div className="auth-page">
+            <div className="auth-card">
+            <h2 className="auth-title">Sign in</h2>
 
-        <>
-            <div>
-                <h2>Enter your Username and Password</h2>
-                <form onSubmit={submission}>
-                    <input 
-                        type="text"
-                        name="username"
-                        placeholder='Enter Username'
-                        value={formData.username}
-                        onChange={change}
-                        required
-                    ></input>
-                    <input 
-                        type="password"
-                        name="password"
-                        placeholder='Enter Username'
-                        value={formData.password}
-                        onChange={change}
-                        required
-                    ></input>
-                    <button type='Submit'>Sign In</button>
-                </form>
+            <form className="auth-form" onSubmit={submission}>
+                <input
+                className="auth-input"
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                value={formData.username}
+                onChange={change}
+                required
+                />
 
+                <input
+                className="auth-input"
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={change}
+                required
+                />
+
+                <button className="auth-btn" type="submit">Sign in</button>
+            </form>
             </div>
-        </>
-    )
+        </div>
+    );
 }
 export default Login;

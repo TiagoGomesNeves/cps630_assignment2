@@ -33,15 +33,32 @@ db.on('error', function (e){
 
 // Default Accounts
 default_Accounts = [
-    {username: "Admin", password: "theLeafs", pfp: "default.webp"},
-    {username: "TestAccount1", password: "1234567", pfp: "default.webp"},
-    {username: "TestAccount2", password: "ABCDEFG", pfp: "default.webp"}
+    { username: "Admin", password: "theLeafs", pfp: "default.webp" },
+    { username: "TestAccount1", password: "1234567", pfp: "rob.jpg" },
+    { username: "TestAccount2", password: "ABCDEFG", pfp: "rob.jpg" },
+
+    { username: "Rob", password: "rob123", pfp: "rob.jpg" },
+    { username: "Lamar", password: "abdu", pfp: "lamar.png" },
+    { username: "Thor", password: "thor123", pfp: "thor.jpg" },
+    { username: "Nylander", password: "milad", pfp: "nylander.jpg" }
 ];
 
 //Default Posts
-default_Posts =[
-    {user: "Admin", content: "First Post on Platform", date: Date.now(), userpfp: "default.webp"},
-    {user: "TestAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now(), userpfp: "default.webp"}
+default_Posts = [
+    { user: "Admin", content: "First Post on Platform", date: Date.now(), userpfp: "default.webp" },
+    { user: "TestAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now(), userpfp: "default.webp" },
+
+    { user: "Rob", content: "Amazing Website", date: Date.now(), userpfp: "rob.jpg" },
+    { user: "Lamar", content: "Lamar checking in!", date: Date.now(), userpfp: "lamar.png" },
+    { user: "Thor", content: "Hello", date: Date.now(), userpfp: "thor.jpg" },
+    { user: "Nylander", content: "William Nylander", image: "nylander.jpg", date: Date.now(), userpfp: "nylander.jpg" },
+
+    { user: "Rob", content: "Lovely Weather we are having today", image: "default.webp", date: Date.now(), userpfp: "rob.jpg" },
+    { user: "Lamar", content: "im so trash at football and will never win, im so sad", date: Date.now(), userpfp: "lamar.png" },
+    { user: "Thor", content: "Dark mode UI goes hard", date: Date.now(), userpfp: "thor.jpg" },
+
+    { user: "TestAccount2", content: "long long long long long long long text long text long text long text long text", date: Date.now(), userpfp: "default.webp" },
+    { user: "Nylander", content: "Leafs 2027", date: Date.now(), userpfp: "nylander.jpg" },
 ];
 
 //default Comments
@@ -140,7 +157,6 @@ app.post('/api/user', express.json(), async (req, res) => {
     } catch (err) {
         console.error("Error adding user: " + err);
         return res.status(500).json({ error: "Failed to save user" });
-   
     }
 });
 
@@ -168,7 +184,7 @@ app.get('/api/user/search', async (req, res) => {
 // Gets 10 random posts to show to user
 app.get('/api/posts', async (req, res) => {
     const randomPosts = await Post.aggregate([
-        { $sample: {size: 10}}
+        { $sample: {size: 30}}
     ]);
 
     if (randomPosts.length === 0){
@@ -196,13 +212,12 @@ app.get('/api/user/pfp/:username', async (req, res) => {
 //Gets all comments related to a post id
 app.get('/api/comments', async (req, res) => {
     const id = req.query.postID;
-   
     if (!id){
         return res.status(400).json({error: "Post ID Required"});
     }
 
     const comments = await Comment.find({postId: id});
-   
+
     return res.status(200).json(comments);
 
 
@@ -225,7 +240,6 @@ app.post('/api/comments', express.json(), async (req, res) => {
     } catch (err) {
         console.error("Error adding comment: " + err);
         return res.status(500).json({ error: "Failed to save comment" });
-   
     }
 
 });
@@ -244,7 +258,7 @@ app.post('/api/posts', upload.single('image'), async (req, res) => {
         content: post.content,
         date: post.date,
         userpfp: post.userpfp,
-        image: image
+        image: req.file?.filename
     }
 
     const addPost = new Post(newPost);
@@ -267,7 +281,7 @@ app.get('/api/user', async (req, res) =>{
         return res.status(400).json({error: "Need username"});
     }
 
-     try{
+    try{
         const user = await User.findOne({username: username});
         if (user){
             return res.status(200).json(user);
@@ -278,6 +292,61 @@ app.get('/api/user', async (req, res) =>{
         return res.status(500).json({ error: "Failed to find user" });
     }
 
+});
+
+app.delete('/api/posts/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).json({ error: "Post ID required" });
+    }
+
+    try {
+        const deletedPost = await Post.findByIdAndDelete(id);
+
+        if (!deletedPost) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+        const deletedComments = await Comment.deleteMany({ postId: id });
+
+        return res.status(200).json({
+            deletedPost,
+            deletedComments: deletedComments.deletedCount
+        }
+    );
+
+    } catch (error) {
+        return res.status(500).json({ error: "Failed to delete post" });
+    }
+});
+
+// Edit a post (text only)
+app.patch('/api/posts/:id', express.json(), async (req, res) => {
+    const id = req.params.id;
+    const { content } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: "Post ID required" });
+    }
+
+    if (typeof content !== "string") {
+        return res.status(400).json({ error: "Content required" });
+    }
+
+    try {
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            { content: content },
+            { returnDocument: "after" }
+        );
+
+        if (!updatedPost) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        return res.status(200).json(updatedPost);
+    } catch (error) {
+        return res.status(500).json({ error: "Failed to edit post" });
+    }
 });
 
 app.listen(PORT, () => {console.log("Server started on port: " + PORT)});
