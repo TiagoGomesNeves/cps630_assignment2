@@ -235,3 +235,72 @@ img {
   display: flex;
   justify-content: center;
 }
+
+/* Edit Post Modal */
+.edit-modal-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.edit-modal{
+  width: min(560px, 92vw);
+  background: #0f0f10;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  padding: 16px;
+}
+
+.edit-modal-title{
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.edit-modal-textarea{
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: #ffffff;
+  outline: none;
+}
+
+.edit-modal-textarea:focus{
+  border-color: rgba(255,255,255,0.3);
+}
+
+.edit-modal-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.edit-btn{
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.edit-btn:hover{
+  background: rgba(255,255,255,0.10);
+}
+
+.edit-btn-primary{
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.14);
+}

@@ -6,12 +6,59 @@ function DisplayPosts({refresh, username}) {
 
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState(false);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [editPostId, setEditPostId] = useState(null);
+    const [editContent, setEditContent] = useState("");
 
     const toggleComments = (id) => {
         if (comments === id) {
             setComments(null);
         } else {
             setComments(id);
+        }
+    };
+
+    const openEdit = (postId) => {
+        const post = posts.find(p => p._id === postId);
+        if (!post) return;
+        setEditPostId(postId);
+        setEditContent(post.content || "");
+        setIsEditOpen(true);
+    };
+
+    const closeEdit = () => {
+        setIsEditOpen(false);
+        setEditPostId(null);
+        setEditContent("");
+    };
+
+    const saveEdit = async () => {
+        if (!editPostId) return;
+
+        try {
+            const response = await fetch(`/api/posts/${editPostId}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: editContent })
+            });
+
+            const result = await response.json();
+
+            if (response.status === 200) {
+                setPosts(prev =>
+                    prev.map(p =>
+                        p._id === editPostId
+                            ? { ...p, content: result.content }
+                            : p
+                    )
+                );
+                closeEdit();
+            } else {
+                alert(result?.error || "Failed to edit post");
+            }
+        } catch (error) {
+            console.error("Error editing post:", error);
+            alert("Failed to edit post");
         }
     };
 
@@ -67,6 +114,7 @@ function DisplayPosts({refresh, username}) {
                                 postUser={post.user}
                                 currentUsername={username}
                                 onDelete={deletePost}
+                                onEdit={openEdit}
                                 />
                                 <div className="post-header">
                                     <img 
@@ -97,6 +145,7 @@ function DisplayPosts({refresh, username}) {
                                 postUser={post.user}
                                 currentUsername={username}
                                 onDelete={deletePost}
+                                onEdit={openEdit}
                                 />
                                 <div className="post-header">
                                     <img 
@@ -119,6 +168,24 @@ function DisplayPosts({refresh, username}) {
                     }
                 })}
             </div>
+            {isEditOpen && (
+                <div className="edit-modal-backdrop" onClick={closeEdit}>
+                    <div className="edit-modal" onClick={(e) => e.stopPropagation()}>
+                    <h3 className="edit-modal-title">Edit post</h3>
+
+                    <textarea
+                        className="edit-modal-textarea"
+                        value={editContent}
+                        onChange={(e) => setEditContent(e.target.value)}
+                    />
+
+                    <div className="edit-modal-actions">
+                        <button type="button" className="edit-btn" onClick={closeEdit}>Cancel</button>
+                        <button type="button" className="edit-btn edit-btn-primary" onClick={saveEdit}>Save</button>
+                    </div>
+                    </div>
+                </div>
+                )}
         </>
     )
 }
