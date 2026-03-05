@@ -93,12 +93,13 @@ async function addDefaultPosts(){
     const postCount = await Post.countDocuments();
 
     if (postCount === 0 ){
-        default_Posts.forEach(post => {
+        for (const post of default_Posts){
             const newPost = new Post(post);
-            newPost.save()
+            await newPost.save()
                 .then(() => console.log("Post added with username: " + post.user))
                 .catch(err => console.error("Error has occured: " + err));
-        });
+        }
+        await addDefaultComments();
 
     }else{
         console.log("Posts already exist, not adding");
@@ -128,7 +129,7 @@ async function addDefaultComments(){
         return;
     }
 };
-addDefaultComments();
+
 
 //API
 
