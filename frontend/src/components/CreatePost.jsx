@@ -17,6 +17,9 @@ function CreatePost({username}){
             if (response1.status === 404){
                 alert("User not found, no Post Made");
                 return;
+            }else{
+                alert("Post has been made");
+                return;
             }
         }catch(error){
             console.log("Error finding User: ", error);

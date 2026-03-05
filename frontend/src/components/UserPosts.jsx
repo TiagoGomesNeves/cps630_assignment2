@@ -37,6 +37,8 @@ function UserPosts({ username }) {
                 if (result && result.error) alert(result.error);
                 else alert("Failed to edit post");
                 return;
+            }else{
+                alert("Post has been updated");
             }
 
             setPosts(prev => {
@@ -63,6 +65,7 @@ function UserPosts({ username }) {
             
             if (response.status === 200) {
                 setPosts(prev => prev.filter(p => p._id !== postId));
+                alert("Post has been deleted");
             } else {
                 alert(result?.error || "Failed to delete post");
             }
@@ -74,12 +77,11 @@ function UserPosts({ username }) {
     useEffect(() => {
         const loadPosts = async () => {
             try {
-                const response = await fetch('/api/posts');
+                const response = await fetch(`/api/posts/search?username=${encodeURIComponent(username)}`);
                 const result = await response.json();
 
-                if (Array.isArray(result)) {
-                    const filtered = result.filter(p => p.user === username);
-                    setPosts(filtered);
+                if (result){
+                    setPosts(result);
                 }
             } catch (error) {
                 console.error("Error loading posts:", error);

@@ -26,7 +26,7 @@ function Login(){
                 setFormData({username: '', password: ''})
                 navigate('/home', { state: { username: user.username } });
             }
-            else if ( response.status === 401){
+            else{
                 alert('Wrong Username or Password');
                 setFormData({username: '', password: ''});
             }
