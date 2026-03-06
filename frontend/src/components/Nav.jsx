@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Nav = ({ username }) => {
@@ -15,6 +14,7 @@ const Nav = ({ username }) => {
                     <li><Link to="/search" state={{  username }} className="nav-item">
                     <img src="/images/search.webp" alt="Search Icon" className="nav-icon" />
                     Search</Link></li>
+                    <li className='settings'><Link to='/settings' state={{  username }}>Settings</Link></li>
                     <li className="nav-logout"><Link to="/">Sign Out</Link></li>
                 </ul>
             </nav>

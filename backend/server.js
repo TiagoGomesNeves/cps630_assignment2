@@ -45,7 +45,7 @@ default_Accounts = [
 
 //Default Posts
 default_Posts = [
-    { user: "admin", content: "First Post on Platform", date: Date.now(), userpfp: "default.webp" },
+    { user: "admin", content: "First Post on Platform", date: new Date('2024-01-15'), userpfp: "default.webp" },
     { user: "testAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now(), userpfp: "default.webp" },
 
     { user: "rob", content: "Amazing Website", date: Date.now(), userpfp: "rob.jpg" },
@@ -375,4 +375,132 @@ app.get('/api/posts/search', async (req,res) =>{
     
 });
 
+app.patch('/api/pfp', upload.single("image"), async (req, res) => {
+    const user = req.body.user;
+    const image = req.file?.filename;
+
+    const pfp = image;
+
+    if (!user || !image){
+        return res.status(400).json({error: "Invalid Data"});
+    }
+    console.log("Here");
+    console.log(user);
+    try{
+        const updatedUser = await User.findOneAndUpdate(
+            {username: user},
+            {$set: {pfp: pfp}},
+            {returnDocument: 'after'}
+        )
+        const updatedPost = await Post.updateMany(
+            {user: user},
+            {$set: {userpfp: pfp}}
+        )
+        console.log(updatedUser);
+        console.log(updatedPost);
+
+        if (updatedUser){
+            return res.status(200).json(updatedUser)
+        }else{
+            return res.status(404).json({error: "User not found"});
+        }
+    }catch(error){
+        return res.status(500).json({error: error});
+    }
+});
+
+
+app.patch('/api/password/:username', express.json(), async (req, res) => {
+    const username = req.params.username;
+    const pass = req.body;
+
+    if(!username || !pass.password){
+        return res.status(400).json({error: "Invalid Data"});
+    }
+
+    try{
+        const user = await User.findOneAndUpdate(
+            {username: username},
+            {$set: {password: pass.password}},
+            {returnDocument: 'after'}
+        )
+
+        if (user){
+            return res.status(200).json(user);
+        }else{
+            return res.status(404).json({error: "User not found"});
+        }
+    }catch(error){
+        return res.status(500).json({error: error});
+    }
+});
+
+app.patch('/api/username/:username', express.json(), async (req, res) => {
+    const username = req.params.username;
+    const user = req.body;
+
+
+    if(!username || !user.username){
+        return res.status(400).json({error: "Invalid Data"});
+    }
+
+    try{
+        const newUser = await User.findOneAndUpdate(
+            {username: username},
+            {$set: {username: user.username.toLowerCase()}},
+            {returnDocument: 'after'}
+        )
+
+        const newPosts = await Post.updateMany(
+            {user: username},
+            {$set: {user: user.username.toLowerCase()}}
+        )
+
+        const newComments = await Comment.updateMany(
+            {user: username},
+            {$set: {user: user.username.toLowerCase()}}
+        )
+       
+        if (newUser){
+            return res.status(200).json(newUser);
+        }else{
+            return res.status(404).json({error: "User not found"});
+        }
+    }catch(error){
+        return res.status(500).json({error: error});
+    }
+});
+
+app.delete('/api/user/:username',  async (req, res) => {
+    const username = req.params.username;
+    try{
+        const user = await User.findOne({username: username});
+        if (!user){
+            return res.status(404).json({error: "User Not Found"});
+        }else{
+            await User.deleteOne({username: username});
+            return res.status(204).send();
+        }
+    }catch(error){
+        return res.status(500).json({error: error});
+    }
+});
+
+app.get('/api/posts/sortedsearch', async (req, res) => {
+    const { search, sort } = req.query;
+    try {
+        const query = search ? { content: { $regex: search, $options: 'i' } }  : {};
+        
+        const sortOption = sort === 'oldest' ? { date: 1 } : { date: -1 };
+
+        const posts = await Post.find(query).sort(sortOption);
+        console.log(posts);
+        if (posts.length === 0) {   
+            return res.status(404).json({ error: "No posts found" });
+        }
+        return res.status(200).json(posts);
+    } catch (error) {
+        return res.status(500).json({ error: "Failed to search posts" });
+    }
+});
 app.listen(PORT, () => {console.log("Server started on port: " + PORT)});
