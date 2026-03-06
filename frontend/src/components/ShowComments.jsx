@@ -69,7 +69,7 @@ function ShowComments({id, username}){
                 {comments.map(comment => {
                     return(
                         <div className="comment" key={comment._id}>
-                            <span className="comment-user">{comment.user}</span>
+                            <span className="comment-user">{comment.user}:</span>
                             <span className="comment-content">{comment.content}</span>
                         </div>
                     )

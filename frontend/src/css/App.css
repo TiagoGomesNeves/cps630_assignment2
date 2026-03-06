@@ -266,7 +266,8 @@ img {
 }
 
 .comment-user{
-  color: purple;
+  color: rgb(19, 158, 197);
+  font-weight: 600;
 }
 
 .comment-input input{
@@ -304,14 +305,14 @@ img {
   bottom: 24px;
   width: auto;
   height: 60px;
-  border: 2px solid #008cff;
-  border-radius: 10px;
-  background-color: #185979;
-  color: #ffffff;
-  font-size: 30px;
+  border: 2px solid #ffffff;
+  border-radius: 100px;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 25px;
   cursor: pointer;
   z-index: 3000;
-  padding: 0 12px 0 12px;
+  padding: 0 50px;
 }
 
 .create-post-fab:hover {
