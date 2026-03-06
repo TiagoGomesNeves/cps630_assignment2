@@ -109,9 +109,9 @@ img {
 }
 .profile-card {
   display: flex;
-  margin-top: -350px;
+  margin-top: 0;
   background-color: #1a1a1a;
-  padding: 20px 50px 0px 20px;
+  padding: 20px 50px 20px 20px;
   border: 2px solid #3b3b3b;
   border-radius: 60px;
 }
