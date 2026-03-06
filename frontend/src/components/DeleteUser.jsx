@@ -6,8 +6,7 @@ function DeleteUSer({ username }){
     const deleteAccount = async (e) => {
         e.preventDefault();
         const confrim = window.confirm("Are you sure");
-
-        if (!confirm){
+        if (!confrim){
             alert("Account Not Deleted");
             return;
         }
