@@ -4,7 +4,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import UserHome from "./components/UserHome";
 import Profile from "./components/Profile";
-import SearchPage from "./pages/SearchPage";
+import SearchPage from "./components/SearchPage";
+import Settings from "./components/Settings";
 import "./css/App.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/home" element={<UserHome />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </>
   );

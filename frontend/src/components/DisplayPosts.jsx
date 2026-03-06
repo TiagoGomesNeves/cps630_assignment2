@@ -51,7 +51,9 @@ function DisplayPosts({refresh, username}) {
                             ? { ...p, content: result.content }
                             : p
                     )
+                    
                 );
+                alert("Post has been Updated");
                 closeEdit();
             } else {
                 alert(result?.error || "Failed to edit post");
@@ -69,6 +71,7 @@ function DisplayPosts({refresh, username}) {
             
             if (response.status === 200) {
                 setPosts(prev => prev.filter(p => p._id !== postId));
+                alert("post has been Deleted");
             } else {
                 alert(result.error);
             }

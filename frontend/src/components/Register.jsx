@@ -31,7 +31,7 @@ function Register(){
             if(response.status === 201){
                 alert("Account Created Successfully");
                 setFormData({username: '', password: ''})
-                navigate('/home', { state: { username: newUser.username } });
+                navigate('/home', { state: { username: newUser.username.toLowerCase() } });
             }
             else if ( response.status === 400){
                 alert('Username in use');

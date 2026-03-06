@@ -21,8 +21,10 @@ function Profile() {
 
     return (
         <div>
+            <Nav username={username} />
+            <br></br>
+            <br></br>
             <div className="profile-card">
-                <Nav username={username} pfp={pfp} />
                 {pfp && <img src={`/images/${pfp}`} alt="Profile" className="profile-pfp" />}
                 <p className="profile-info">{username}</p>
             </div>

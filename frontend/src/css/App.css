@@ -20,23 +20,24 @@
 }
 
 .main-header {
-    width: 100%;
-    position: fixed; 
-    top: 0;
-    left: 0;
-    background-color: #1a1a1a; 
-    padding: 1rem 0;
-    border-bottom: 1px solid #333;
-    z-index: 1000;
+  width: 100%;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  background-color: #1a1a1a; 
+  padding: 1rem 0;
+  border-bottom: 1px solid #333;
+  z-index: 1000;
 }
 
 .nav-list {
   display: flex;
   justify-content: center; 
-  gap: 120px;          
+  gap: 50px;          
   list-style: none;      
   margin: 0;
   padding: 0;
+  margin-left: 20px;
 }
 
 .nav-list a {
@@ -44,6 +45,44 @@
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 500;
+  background-color: rgb(11, 11, 11);
+  padding: 8px 15px;
+  border-radius: 10px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;         
+}
+
+.nav-icon {
+  height: 1.5rem;     
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.nav-logout {
+  margin-left: auto;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logout a {
+  background-color: #cb5346;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.nav-list a:hover {
+  background-color: #333;
+}
+
+.nav-logout a:hover {
+  background-color: #f30000;
 }
 
 img {
@@ -52,14 +91,14 @@ img {
 }
 
 .post-card {
-    border: 1px solid #e8e9ed;
-    border-radius: 16px;
-    padding: 20px 22px;
-    margin: 0 0 16px 0;
-    background-color: #111318;
-    transition: border-color 0.2s;
-    max-width: 500px;
-    position: relative;
+  border: 1px solid #e8e9ed;
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin: 30px 0 0 0;
+  background-color: #111318;
+  transition: border-color 0.2s;
+  max-width: 500px;
+  position: relative;
 }
 .post-card:hover {
   border-color: #2e3250;
@@ -88,7 +127,7 @@ img {
 }
 .post-content {
   color: #c8ccee;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
   margin-bottom: 16px;
 }
@@ -109,11 +148,12 @@ img {
 }
 .profile-card {
   display: flex;
-  margin-top: 0;
-  background-color: #1a1a1a;
-  padding: 20px 50px 20px 20px;
-  border: 2px solid #3b3b3b;
+  background-color: #111318;
+  padding: 20px 50px 0px 20px;
+  border: 1px solid #ffffff;
   border-radius: 60px;
+  margin-bottom: 40px;
+  margin-top: 30px;
 }
 
 .profile-pfp {
@@ -124,7 +164,7 @@ img {
   margin-right: 100px;
   margin-left: 20px;
   object-fit: cover;
-  border: 2px solid #9d9d9d;
+  border: 2px solid #464646;
 }
 
 .profile-info {
