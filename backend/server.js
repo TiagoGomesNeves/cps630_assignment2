@@ -49,13 +49,13 @@ default_Posts = [
     { user: "testAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now(), userpfp: "default.webp" },
 
     { user: "rob", content: "Amazing Website", date: Date.now(), userpfp: "rob.jpg" },
-    { user: "lamar", content: "Lamar checking in!", date: Date.now(), userpfp: "lamar.png" },
+    { user: "lamar", content: "Lamar checking in!", date: new Date('1997-03-002'), userpfp: "lamar.png" },
     { user: "thor", content: "Hello", date: Date.now(), userpfp: "thor.jpg" },
     { user: "nylander", content: "William Nylander", image: "nylander.jpg", date: Date.now(), userpfp: "nylander.jpg" },
 
     { user: "rob", content: "Lovely Weather we are having today", image: "default.webp", date: Date.now(), userpfp: "rob.jpg" },
     { user: "lamar", content: "im so trash at football and will never win, im so sad", date: Date.now(), userpfp: "lamar.png" },
-    { user: "thor", content: "Dark mode UI goes hard", date: Date.now(), userpfp: "thor.jpg" },
+    { user: "thor", content: "Dark mode UI goes hard", date: new Date('2016-04-29'), userpfp: "thor.jpg" },
 
     { user: "testAccount2", content: "long long long long long long long text long text long text long text long text", date: Date.now(), userpfp: "default.webp" },
     { user: "nylander", content: "Leafs 2027", date: Date.now(), userpfp: "nylander.jpg" },
