@@ -31,44 +31,39 @@ db.on('error', function (e){
     console.log("Error on Connection: " + e);
 });
 
-// Default Accounts
+
+// DEFAULT DATA 
 default_Accounts = [
     { username: "admin", password: "theLeafs", pfp: "default.webp" },
     { username: "testAccount1", password: "1234567", pfp: "rob.jpg" },
     { username: "testAccount2", password: "ABCDEFG", pfp: "rob.jpg" },
-
     { username: "rob", password: "rob123", pfp: "rob.jpg" },
     { username: "lamar", password: "abdu", pfp: "lamar.png" },
     { username: "thor", password: "thor123", pfp: "thor.jpg" },
     { username: "nylander", password: "milad", pfp: "nylander.jpg" }
 ];
 
-//Default Posts
 default_Posts = [
     { user: "admin", content: "First Post on Platform", date: Date.now(), userpfp: "default.webp" },
     { user: "testAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now(), userpfp: "default.webp" },
-
     { user: "rob", content: "Amazing Website", date: Date.now(), userpfp: "rob.jpg" },
     { user: "lamar", content: "Lamar checking in!", date: Date.now(), userpfp: "lamar.png" },
     { user: "thor", content: "Hello", date: Date.now(), userpfp: "thor.jpg" },
     { user: "nylander", content: "William Nylander", image: "nylander.jpg", date: Date.now(), userpfp: "nylander.jpg" },
-
     { user: "rob", content: "Lovely Weather we are having today", image: "default.webp", date: Date.now(), userpfp: "rob.jpg" },
     { user: "lamar", content: "im so trash at football and will never win, im so sad", date: Date.now(), userpfp: "lamar.png" },
     { user: "thor", content: "Dark mode UI goes hard", date: Date.now(), userpfp: "thor.jpg" },
-
     { user: "testAccount2", content: "long long long long long long long text long text long text long text long text", date: Date.now(), userpfp: "default.webp" },
     { user: "nylander", content: "Leafs 2027", date: Date.now(), userpfp: "nylander.jpg" },
 ];
 
-//default Comments
 default_Comments=[
     {user: "admin", content: "First Comment"},
     {user: "testAccount1", content: "Second Comment"}
 ];
 
 
-// Adds Default Accounts to Database if not already added
+// ADD DEFAULT DATA
 async function addDefaultAccounts(){
     const userCount = await User.countDocuments();
 
@@ -79,16 +74,10 @@ async function addDefaultAccounts(){
                 .then(() => console.log("User added with username: " + user.username))
                 .catch(err => console.error("Error has occured: " + err));
         });
-
-    }else{
-        console.log("Users already exist, not adding");
-        return;
     }
 };
 addDefaultAccounts();
 
-
-// Adds Default Posts to database if not already Added
 async function addDefaultPosts(){
     const postCount = await Post.countDocuments();
 
@@ -100,41 +89,32 @@ async function addDefaultPosts(){
                 .catch(err => console.error("Error has occured: " + err));
         }
         await addDefaultComments();
-
-    }else{
-        console.log("Posts already exist, not adding");
-        return;
     }
 };
 addDefaultPosts();
 
-// Adds Default Comments to database if not already Added
 async function addDefaultComments(){
     const commentCount = await Comment.countDocuments();
-
     const postID = await Post.findOne();
 
     if (commentCount === 0 ){
         default_Comments.forEach(comment => {
             const addComment = {...comment, postId: postID._id}
-            console.log(addComment)
             const newComment = new Comment(addComment);
-            newComment.save()
-                .then(() => console.log("Comment added with username: " + comment.user))
-                .catch(err => console.error("Error has occured: " + err));
+            newComment.save();
         });
-
-    }else{
-        console.log("Comments already exist, not adding");
-        return;
     }
 };
 
 
-//API
 
-//Create user in database
+// API ROUTES
+
+
+
+// CREATE USER
 app.post('/api/user', express.json(), async (req, res) => {
+
     const user = req.body;
 
     if (!user.username || !user.password){
@@ -151,228 +131,126 @@ app.post('/api/user', express.json(), async (req, res) => {
         password: user.password,
         pfp: "default.webp"
     });
-    try {
-        await newUser.save();
-        console.log("User added successfully");
-        return res.status(201).json(newUser);
-    } catch (err) {
-        console.error("Error adding user: " + err);
-        return res.status(500).json({ error: "Failed to save user" });
-    }
+
+    await newUser.save();
+
+    return res.status(201).json(newUser);
 });
 
-// Searches for user in database to login
+
+// LOGIN SEARCH USER
 app.get('/api/user/search', async (req, res) => {
+
     const userName = req.query.username.toLowerCase();
     const userPass = req.query.password;
 
-    if (!userName || !userPass){
-        return res.status(400).json({error: "All fields Required"});
+    const user = await User.findOne({username: userName, password: userPass});
+
+    if (user){
+        return res.status(200).json(user);
     }
 
-    console.log(userName);
-    console.log(userPass);
-
-    try{
-        const user = await User.findOne({username: userName, password: userPass});
-        console.log(user);
-        if (user){
-            return res.status(200).json(user);
-        }else{
-            return res.status(404).json({error: "User not Found"});
-        }
-    }catch (error){
-        return res.status(500).json({ error: "Failed to find user" });
-    }
+    return res.status(404).json({error: "User not Found"});
 });
 
-// Gets 10 random posts to show to user
+
+ 
+//  SEARCH ROUTES
+
+
 app.get('/api/posts', async (req, res) => {
-    const randomPosts = await Post.aggregate([
-        { $sample: {size: 30}}
-    ]);
 
-    if (randomPosts.length === 0){
-        return res.status(404).json({error: "No posts Found"});
-    }
+    const search = req.query.search || "";
+    const sort = req.query.sort === "oldest" ? 1 : -1;
 
-    return res.status(200).json(randomPosts);
-});
-
-app.get('/api/user/pfp/:username', async (req, res) => {
     try {
-        const userName = req.params.username.toLowerCase();
-        const user = await User.findOne({ username: userName }).select('pfp -_id');
 
-        if (user) {
-            return res.status(200).json(user);
-        } else {
-            return res.status(404).json({ error: "User not found" });
+        let posts;
+
+        if(search === ""){
+            posts = await Post.aggregate([{ $sample: { size: 30 } }]);
         }
-    } catch (error) {
-        return res.status(500).json({ error: "Server error" });
+        else{
+            posts = await Post.find({
+                $or:[
+                    {content: {$regex: search, $options:"i"}},
+                    {user: {$regex: search, $options:"i"}}
+                ]
+            }).sort({date: sort});
+        }
+
+        return res.status(200).json(posts);
+
     }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({error:"Failed to fetch posts"});
+    }
+
 });
 
-//Gets all comments related to a post id
+
+// GET COMMENTS
 app.get('/api/comments', async (req, res) => {
+
     const id = req.query.postID;
-    if (!id){
-        return res.status(400).json({error: "Post ID Required"});
-    }
 
     const comments = await Comment.find({postId: id});
 
     return res.status(200).json(comments);
 
-
 });
 
-// Adds new Comment to a Post
-app.post('/api/comments', express.json(), async (req, res) => {
-    const newComment = req.body;
-    
-    if (!newComment.postId || !newComment.user || !newComment.content){
-        return res.status(400).json({error: "Bad request need all fields"});
-    }
-    console.log(newComment.user);
-    const comment = new Comment(newComment);
 
-    try {
-        await comment.save();
-        console.log("Comment added successfully");
-        return res.status(201).json(comment);
-    } catch (err) {
-        console.error("Error adding comment: " + err);
-        return res.status(500).json({ error: "Failed to save comment" });
-    }
-
-});
-
-// Creates a post
+// CREATE POST
 app.post('/api/posts', upload.single('image'), async (req, res) => {
+
     const post = req.body;
     const image = req.file?.filename;
-    console.log("Here");
-    if (!post.content || !post.user || !post.date){
-        return res.status(400).json({error: "Need content, user and date"});
-    }
 
-    const newPost = {
+    const newPost = new Post({
         user: post.user.toLowerCase(),
         content: post.content,
         date: post.date,
         userpfp: post.userpfp,
         image: image
-    }
+    });
 
-    const addPost = new Post(newPost);
-    try {
-            await addPost.save();
-            console.log("Post added successfully");
-            return res.status(201).json(addPost);
-        } catch (err) {
-            console.error("Error adding post: " + err);
-            return res.status(500).json({ error: "Failed to save post" });
-    
-        }
-});
+    await newPost.save();
 
-// Finds a user based on username
-app.get('/api/user', async (req, res) =>{
-    const username = req.query.username.toLowerCase();
-
-    if (!username){
-        return res.status(400).json({error: "Need username"});
-    }
-
-    try{
-        const user = await User.findOne({username: username});
-        console.log(user);
-        if (user){
-            return res.status(200).json(user);
-        }else{
-            return res.status(404).json({error: "User not Found"});
-        }
-    }catch (error){
-        return res.status(500).json({ error: "Failed to find user" });
-    }
+    return res.status(201).json(newPost);
 
 });
 
+
+// DELETE POST
 app.delete('/api/posts/:id', async (req, res) => {
+
     const id = req.params.id;
-    if (!id) {
-        return res.status(400).json({ error: "Post ID required" });
-    }
 
-    try {
-        const deletedPost = await Post.findByIdAndDelete(id);
+    const deletedPost = await Post.findByIdAndDelete(id);
+    await Comment.deleteMany({postId:id});
 
-        if (!deletedPost) {
-            return res.status(404).json({ error: "Post not found" });
-        }
-        const deletedComments = await Comment.deleteMany({ postId: id });
+    return res.status(200).json(deletedPost);
 
-        return res.status(200).json({
-            deletedPost,
-            deletedComments: deletedComments.deletedCount
-        }
+});
+
+
+// EDIT POST
+app.patch('/api/posts/:id', express.json(), async (req, res) => {
+
+    const id = req.params.id;
+    const {content} = req.body;
+
+    const updatedPost = await Post.findByIdAndUpdate(
+        id,
+        {content:content},
+        {returnDocument:"after"}
     );
 
-    } catch (error) {
-        return res.status(500).json({ error: "Failed to delete post" });
-    }
+    return res.status(200).json(updatedPost);
+
 });
 
-// Edit a post (text only)
-app.patch('/api/posts/:id', express.json(), async (req, res) => {
-    const id = req.params.id;
-    const { content } = req.body;
-
-    if (!id) {
-        return res.status(400).json({ error: "Post ID required" });
-    }
-
-    if (typeof content !== "string") {
-        return res.status(400).json({ error: "Content required" });
-    }
-
-    try {
-        const updatedPost = await Post.findByIdAndUpdate(
-            id,
-            { content: content },
-            { returnDocument: "after" }
-        );
-
-        if (!updatedPost) {
-            return res.status(404).json({ error: "Post not found" });
-        }
-
-        return res.status(200).json(updatedPost);
-    } catch (error) {
-        return res.status(500).json({ error: "Failed to edit post" });
-    }
-});
-
-app.get('/api/posts/search', async (req,res) =>{
-    const user = req.query.username.toLowerCase();
-
-    
-
-    if (!user){
-        return res.status(400).json({error: "Username needed"});
-    }
-
-    try{
-         const posts = await Post.find({user: user});
-         console.log(posts);
-         return res.status(200).json(posts);
-    }catch (error){
-        return res.status(500).json({error: error});
-    }
-
-    
-});
 
 app.listen(PORT, () => {console.log("Server started on port: " + PORT)});
