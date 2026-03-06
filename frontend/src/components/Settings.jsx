@@ -14,10 +14,19 @@ function Settings(){
     return(
         <>
             <Nav username={username}/>
-            <Changepfp username={username}/>
-            <Changeuser username={username} onUsernameChange={setUsername}/>
-            <ChangePass username={username}/>
-            <DeleteUser username={username}/>
+            <div className="settings-page">
+                <div className="settings-card">
+                    <h1 className="settings-title">Account Settings</h1>
+                    <p className="settings-subtitle">Manage your profile picture, username, password, and account actions.</p>
+
+                    <div className="settings-sections">
+                        <Changepfp username={username}/>
+                        <Changeuser username={username} onUsernameChange={setUsername}/>
+                        <ChangePass username={username}/>
+                        <DeleteUser username={username}/>
+                    </div>
+                </div>
+            </div>
         </>
     )
 

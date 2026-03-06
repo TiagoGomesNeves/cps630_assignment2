@@ -28,10 +28,17 @@ function ChangePass({ username }){
 
     return (
         <>
-            <form onSubmit={changePass}>
-                <input type="password" placeholder="Enter New Pass" onChange={(e) => setPass(e.target.value)} required></input>
-                <button>Submit</button>
-            </form>
+            <div className="settings-section">
+                <div className="settings-section-header">
+                    <h2 className="settings-section-title">Change Password</h2>
+                    <p className="settings-section-text">Choose a new password for your account.</p>
+                </div>
+
+                <form className="settings-form settings-form-row" onSubmit={changePass}>
+                    <input className="settings-input" type="password" placeholder="Enter New Pass" onChange={(e) => setPass(e.target.value)} required></input>
+                    <button className="settings-btn">Submit</button>
+                </form>
+            </div>
         </>
     )
 

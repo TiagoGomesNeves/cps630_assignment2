@@ -10,6 +10,7 @@ function DisplayPosts({refresh, username}) {
     const [editPostId, setEditPostId] = useState(null);
     const [editContent, setEditContent] = useState("");
 
+    // Toggle which post's comments are visible
     const toggleComments = (id) => {
         if (comments === id) {
             setComments(null);
@@ -18,6 +19,7 @@ function DisplayPosts({refresh, username}) {
         }
     };
 
+    // Open and close the edit modal for a selected post
     const openEdit = (postId) => {
         const post = posts.find(p => p._id === postId);
         if (!post) return;
@@ -32,6 +34,7 @@ function DisplayPosts({refresh, username}) {
         setEditContent("");
     };
 
+    // Save edited post content to the backend and update local state
     const saveEdit = async () => {
         if (!editPostId) return;
 
@@ -81,6 +84,7 @@ function DisplayPosts({refresh, username}) {
         }
     };
 
+    // Load all posts when the page refresh trigger changes
     const loadPosts = async () => {
         try{
             const response = await fetch('/api/posts');

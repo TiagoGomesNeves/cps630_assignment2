@@ -30,10 +30,17 @@ function Changepfp({ username }){
     };
     return(
         <>
-            <form onSubmit={submitPfp}>
-                <input type="file" accept="image/*" onChange={(e)=> setImage(e.target.files[0])}required></input>
-                <button>Submit</button>
-            </form>
+            <div className="settings-section">
+                <div className="settings-section-header">
+                    <h2 className="settings-section-title">Change Profile Picture</h2>
+                    <p className="settings-section-text">Upload a new image for your profile.</p>
+                </div>
+
+                <form className="settings-form settings-form-file" onSubmit={submitPfp}>
+                    <input className="settings-file-input" type="file" accept="image/*" onChange={(e)=> setImage(e.target.files[0])} required></input>
+                    <button className="settings-btn">Submit</button>
+                </form>
+            </div>
         </>
     )
 }

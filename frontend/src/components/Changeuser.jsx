@@ -29,10 +29,17 @@ function ChangeUser({ username, onUsernameChange }){
 
     return (
         <>
-            <form onSubmit={changeName}>
-                <input type="text" placeholder="Enter New Name" onChange={(e) => setName(e.target.value)} required></input>
-                <button>Submit</button>
-            </form>
+            <div className="settings-section">
+                <div className="settings-section-header">
+                    <h2 className="settings-section-title">Change Username</h2>
+                    <p className="settings-section-text">Enter a new username for your account.</p>
+                </div>
+
+                <form className="settings-form settings-form-row" onSubmit={changeName}>
+                    <input className="settings-input" type="text" placeholder="Enter New Name" onChange={(e) => setName(e.target.value)} required></input>
+                    <button className="settings-btn">Submit</button>
+                </form>
+            </div>
         </>
     )
 }

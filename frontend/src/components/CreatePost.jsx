@@ -1,12 +1,20 @@
 import { useState } from 'react';
 
-
-function CreatePost({username}){
+function CreatePost({ username, onPostCreated }){
     const [content, setcontent] = useState('');
     const [image, setImage] = useState('');
-    console.log(username);
+    const [isOpen, setIsOpen] = useState(false);
 
-    
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+        setcontent('');
+        setImage('');
+    };
+
     const create = async (e) =>{
         e.preventDefault();
         let user = null;
@@ -24,7 +32,6 @@ function CreatePost({username}){
         }
 
         try{
-            console.log(user)
             const formData = new FormData();
             formData.append('user', username.toLowerCase());
             formData.append('content', content);
@@ -39,6 +46,10 @@ function CreatePost({username}){
 
             if (response.status === 201){
                 alert("Post Added Successfully");
+                closeModal();
+                if (onPostCreated) {
+                    onPostCreated();
+                }
                 return;
             }else{
                 alert("No Post Added Somethinng went wrong");
@@ -50,15 +61,41 @@ function CreatePost({username}){
     };
 
     return(
-        <>  
-            <div className='post-form'>
-                <h2>Create a Post</h2>
-                <form onSubmit={create} className='post-form-container'>
-                    <input type='text' placeholder='Write Something...' onChange={(e) => setcontent(e.target.value)}required></input>
-                    <input type='file' accept='image/*' onChange={(e) => setImage(e.target.files[0])}></input>
-                    <button>Submit</button>
-                </form>
-            </div>
+        <>
+            <button className="create-post-fab" onClick={openModal}>+</button>
+
+            {isOpen && (
+                <div className="create-post-backdrop" onClick={closeModal}>
+                    <div className="create-post-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="create-post-header">
+                            <h2>Create a Post</h2>
+                            <button type="button" className="create-post-close" onClick={closeModal}>×</button>
+                        </div>
+
+                        <form onSubmit={create} className="create-post-form">
+                            <textarea
+                                className="create-post-textarea"
+                                placeholder="Write Something..."
+                                value={content}
+                                onChange={(e) => setcontent(e.target.value)}
+                                required
+                            ></textarea>
+
+                            <input
+                                className="create-post-file"
+                                type='file'
+                                accept='image/*'
+                                onChange={(e) => setImage(e.target.files[0])}
+                            ></input>
+
+                            <div className="create-post-actions">
+                                <button type="button" className="create-post-cancel" onClick={closeModal}>Cancel</button>
+                                <button type="submit" className="create-post-submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </>
     )
 }

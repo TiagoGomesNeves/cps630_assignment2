@@ -31,7 +31,14 @@ function DeleteUSer({ username }){
     }
     return(
         <>
-            <button onClick={deleteAccount}>Delete Account</button>
+            <div className="settings-section settings-section-danger">
+                <div className="settings-section-header">
+                    <h2 className="settings-section-title">Delete Account</h2>
+                    <p className="settings-section-text">Permanently remove your account from the platform.</p>
+                </div>
+
+                <button className="settings-btn settings-btn-danger" onClick={deleteAccount}>Delete Account</button>
+            </div>
         </>
     )
 }

@@ -19,8 +19,8 @@ function UserHome() {
             <br></br>
             <br></br>
             <div className='user-container'>
-            <DisplayPosts refresh={refresh} username={username.username}/>
-            <CreatePost username={username.username}/>
+                <DisplayPosts refresh={refresh} username={username.username}/>
+                <CreatePost username={username.username} onPostCreated={changePosts}/>
             </div>
             <button onClick={changePosts}>New Posts</button>
         </>
