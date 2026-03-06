@@ -62,7 +62,7 @@ function CreatePost({ username, onPostCreated }){
 
     return(
         <>
-            <button className="create-post-fab" onClick={openModal}>+</button>
+            <button className="create-post-fab" onClick={openModal}>Create Post</button>
 
             {isOpen && (
                 <div className="create-post-backdrop" onClick={closeModal}>
