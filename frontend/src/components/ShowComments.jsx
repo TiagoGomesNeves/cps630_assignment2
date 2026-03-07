@@ -29,6 +29,7 @@ function ShowComments({id, username}){
             const result = await response.json();
             if (response.status === 201){
                 alert("Comment Added");
+                setNewComment('');
                 loadComments();
             }else{
                 alert("Error When Adding Comment");

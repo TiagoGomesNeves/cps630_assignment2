@@ -34,37 +34,35 @@ db.on('error', function (e){
 // Default Accounts
 default_Accounts = [
     { username: "admin", password: "theLeafs", pfp: "default.webp" },
-    { username: "testAccount1", password: "1234567", pfp: "rob.jpg" },
-    { username: "testAccount2", password: "ABCDEFG", pfp: "rob.jpg" },
-
+    { username: "abdu", password: "123", pfp: "rob.jpg" },
+    { username: "tiago", password: "123", pfp: "rob.jpg" },
+    { username: "milad", password: "123", pfp: "rob.jpg" },
+    { username: "taha", password: "123", pfp: "rob.jpg" },
     { username: "rob", password: "rob123", pfp: "rob.jpg" },
     { username: "lamar", password: "abdu", pfp: "lamar.png" },
     { username: "thor", password: "thor123", pfp: "thor.jpg" },
-    { username: "nylander", password: "milad", pfp: "nylander.jpg" }
+    { username: "nylander", password: "milad", pfp: "nyla`nder.jpg" }
 ];
 
 //Default Posts
 default_Posts = [
-    { user: "admin", content: "First Post on Platform", date: new Date('2024-01-15'), userpfp: "default.webp" },
-    { user: "testAccount1", content: "Second Post on Platform", image: "default.webp", date: Date.now(), userpfp: "default.webp" },
-
-    { user: "rob", content: "Amazing Website", date: Date.now(), userpfp: "rob.jpg" },
-    { user: "lamar", content: "Lamar checking in!", date: new Date('1997-03-002'), userpfp: "lamar.png" },
-    { user: "thor", content: "Hello", date: Date.now(), userpfp: "thor.jpg" },
-    { user: "nylander", content: "William Nylander", image: "nylander.jpg", date: Date.now(), userpfp: "nylander.jpg" },
-
-    { user: "rob", content: "Lovely Weather we are having today", image: "default.webp", date: Date.now(), userpfp: "rob.jpg" },
-    { user: "lamar", content: "im so trash at football and will never win, im so sad", date: Date.now(), userpfp: "lamar.png" },
-    { user: "thor", content: "Dark mode UI goes hard", date: new Date('2016-04-29'), userpfp: "thor.jpg" },
-
-    { user: "testAccount2", content: "long long long long long long long text long text long text long text long text", date: Date.now(), userpfp: "default.webp" },
-    { user: "nylander", content: "Leafs 2027", date: Date.now(), userpfp: "nylander.jpg" },
+    { user: "admin", content: "Welcome to the new platform! Glad to have everyone here.", image: "welcome.jpg", date: new Date('2024-01-15'), userpfp: "rob.jpg" },
+    { user: "abdu", content: "Just finished setting up my profile. The dark mode looks sick!", date: new Date('2026-03-01'), userpfp: "rob.jpg" },
+    { user: "nylander", content: "Game day! Let's get that W tonight!", image: "leafs.webp", date: Date.now(), userpfp: "nylander.jpg" },
+    { user: "lamar", content: "Yo it's Lamar Jackson, Checking in!", date: Date.now(), userpfp: "lamar.png" },
+    { user: "rob", content: "Anyone watching the Wild game? That last goal was insane.", image: "default.webp", date: Date.now(), userpfp: "rob.jpg" },
+    { user: "tiago", content: "Testing the image upload feature... Seems to be working perfectly!", image: "toronto.jpg", date: Date.now(), userpfp: "rob.jpg" },
+    { user: "milad", content: "Working on the new Search algorithm today. Stay tuned.", date: new Date('2026-03-04'), userpfp: "rob.jpg" },
+    { user: "thor", content: "Dark mode UI goes hard. Best CSS I've seen in a while.", date: new Date('2026-03-05'), userpfp: "thor.jpg" },
+    { user: "taha", content: "Does anyone know how to fix a 404 error on the profile page?", image: "error.webp", date: Date.now(), userpfp: "rob.jpg" },
+    { user: "nylander", content: "Leafs 2027 is the year. I'm calling it now.", date: Date.now(), userpfp: "nylander.jpg" },
+    { user: "admin", content: "This site is currently in beta mode.", date: Date.now(), userpfp: "default.webp" }
 ];
 
 //default Comments
 default_Comments=[
     {user: "admin", content: "First Comment"},
-    {user: "testAccount1", content: "Second Comment"}
+    {user: "abdu", content: "Second Comment"}
 ];
 
 
