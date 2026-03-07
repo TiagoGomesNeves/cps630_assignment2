@@ -9,6 +9,7 @@ function UserHome() {
     const location = useLocation();
     const username = location.state; 
 
+    //When a Post is created refresh the posts on screen
     const changePosts = () => {
         setRefresh(prev => !prev)
     }

@@ -4,10 +4,12 @@ import Nav from './Nav';
 import UserPosts from './UserPosts';
 
 function Profile() {
+    // Used to get username from nav
     const location = useLocation();
     const username = location.state?.username;
     const [pfp, setPfp] = useState("");
     
+    // everytime username changes we fetch the pfp of the user
     useEffect(() => {
         if (username) {
             fetch(`/api/user/pfp/${username}`)

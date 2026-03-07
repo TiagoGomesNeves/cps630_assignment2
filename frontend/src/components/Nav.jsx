@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const Nav = ({ username }) => {
+    //Handles the navigation to all the pages
     return (
         <header className="main-header">
             <nav className="navbar">

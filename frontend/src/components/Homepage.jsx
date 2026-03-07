@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 function Homepage(){
     return (
         <div className="auth-page">
+            <div className="welcome-title">
+            <img src="images/tmu.webp" className="welcome-img" />
+            <h2 className="welcome-text">TMU Social</h2>
+            </div>
         <div className="auth-card">
             <h1 className="auth-title">Welcome</h1>
             <p className="auth-subtitle">Sign in or create an account to continue</p>

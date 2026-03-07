@@ -55,7 +55,7 @@ default_Posts = [
     { user: "milad", content: "Working on the new Search algorithm today. Stay tuned.", date: new Date('2026-03-04'), userpfp: "rob.jpg" },
     { user: "thor", content: "Dark mode UI goes hard. Best CSS I've seen in a while.", date: new Date('2026-03-05'), userpfp: "thor.jpg" },
     { user: "taha", content: "Does anyone know how to fix a 404 error on the profile page?", image: "error.webp", date: Date.now(), userpfp: "rob.jpg" },
-    { user: "nylander", content: "Leafs 2027 is the year. I'm calling it now.", date: Date.now(), userpfp: "nylander.jpg" },
+    { user: "nylander", content: "Leafs 2027 is the year. I'm calling it now.", date: new Date('1997-01-09'), userpfp: "nylander.jpg" },
     { user: "admin", content: "This site is currently in beta mode.", date: Date.now(), userpfp: "default.webp" }
 ];
 
@@ -197,6 +197,7 @@ app.get('/api/posts', async (req, res) => {
     return res.status(200).json(randomPosts);
 });
 
+
 app.get('/api/user/pfp/:username', async (req, res) => {
     try {
         const userName = req.params.username.toLowerCase();
@@ -298,6 +299,7 @@ app.get('/api/user', async (req, res) =>{
 
 });
 
+
 app.delete('/api/posts/:id', async (req, res) => {
     const id = req.params.id;
     if (!id) {
@@ -353,6 +355,7 @@ app.patch('/api/posts/:id', express.json(), async (req, res) => {
     }
 });
 
+
 app.get('/api/posts/search', async (req,res) =>{
     const user = req.query.username.toLowerCase();
 
@@ -372,6 +375,7 @@ app.get('/api/posts/search', async (req,res) =>{
 
     
 });
+
 
 app.patch('/api/pfp', upload.single("image"), async (req, res) => {
     const user = req.body.user;
@@ -408,6 +412,7 @@ app.patch('/api/pfp', upload.single("image"), async (req, res) => {
 });
 
 
+
 app.patch('/api/password/:username', express.json(), async (req, res) => {
     const username = req.params.username;
     const pass = req.body;
@@ -432,6 +437,7 @@ app.patch('/api/password/:username', express.json(), async (req, res) => {
         return res.status(500).json({error: error});
     }
 });
+
 
 app.patch('/api/username/:username', express.json(), async (req, res) => {
     const username = req.params.username;
@@ -469,6 +475,7 @@ app.patch('/api/username/:username', express.json(), async (req, res) => {
     }
 });
 
+
 app.delete('/api/user/:username',  async (req, res) => {
     const username = req.params.username;
     try{
@@ -484,6 +491,7 @@ app.delete('/api/user/:username',  async (req, res) => {
         return res.status(500).json({error: error});
     }
 });
+
 
 app.get('/api/posts/sortedsearch', async (req, res) => {
     const { search, sort } = req.query;
@@ -502,4 +510,5 @@ app.get('/api/posts/sortedsearch', async (req, res) => {
         return res.status(500).json({ error: "Failed to search posts" });
     }
 });
+
 app.listen(PORT, () => {console.log("Server started on port: " + PORT)});

@@ -8,6 +8,7 @@ function UserPosts({ username }) {
     const [editPostId, setEditPostId] = useState(null);
     const [editContent, setEditContent] = useState("");
 
+    // Allows to edit user posts
     const openEdit = (postId) => {
         const post = posts.find(p => p._id === postId);
         if (!post) return;
@@ -16,12 +17,14 @@ function UserPosts({ username }) {
         setIsEditOpen(true);
     };
 
+    //Closes the edit form
     const closeEdit = () => {
         setIsEditOpen(false);
         setEditPostId(null);
         setEditContent("");
     };
 
+    // Saves the post changes
     const saveEdit = async () => {
         if (!editPostId) return;
 
@@ -55,6 +58,7 @@ function UserPosts({ username }) {
         }
     };
 
+    //Deletes the selected post
     const deletePost = async (postId) => {
         try {
             const response = await fetch(`/api/posts/${postId}`, {
@@ -74,6 +78,7 @@ function UserPosts({ username }) {
         }
     };
 
+    //Loads posts everytime a username is given
     useEffect(() => {
         const loadPosts = async () => {
             try {

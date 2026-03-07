@@ -4,6 +4,7 @@ function ShowComments({id, username}){
     const [comments , setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
 
+    // Retrieves comments on a given post
     const loadComments = async () =>{
         try{
             const response = await fetch(`/api/comments?postID=${encodeURIComponent(id)}`);
@@ -14,6 +15,7 @@ function ShowComments({id, username}){
         }
     };
 
+    // Adds a comment to the db
     const addComment = async (e) =>{
         e.preventDefault();
         try {
@@ -39,6 +41,7 @@ function ShowComments({id, username}){
         }
     }
 
+    //Everytime the id changes the comments load
     useEffect(()=> {
         loadComments();
     }, [id]);

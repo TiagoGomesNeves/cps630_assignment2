@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 function Register(){
     const navigate = useNavigate();
 
+    //Used to reset the fields to blank
     const [formData, setFormData] = useState({
         username: '',
         password: ''
     });
 
+    // Submits / Adds new user to the db
     const submission = async (e) => {
         e.preventDefault();
 
@@ -43,6 +45,7 @@ function Register(){
         }
     };
 
+    // Changes form data to changed value
     const change = (e) =>{
         setFormData({
             ...formData,

@@ -12,6 +12,7 @@ function SearchPage() {
   const location = useLocation();
   const username = location.state.username.toLowerCase();
 
+  // Changes comments between an id and null
   const toggleComments = (id) => {
         if (comments === id) {
             setComments(null);
@@ -20,6 +21,7 @@ function SearchPage() {
         }
   };
 
+  // Searches for posts 
   const handleSearch = async () => {
     try {
       const response = await fetch(

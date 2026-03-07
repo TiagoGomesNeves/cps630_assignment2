@@ -8,6 +8,7 @@ import Nav from './Nav'
 
 
 function Settings(){
+    // Gets username passed to it by nav
     const location = useLocation();
     const [username, setUsername] = useState(location.state.username.toLowerCase());
 
