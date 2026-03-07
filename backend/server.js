@@ -55,7 +55,7 @@ default_Posts = [
     { user: "milad", content: "Working on the new Search algorithm today. Stay tuned.", date: new Date('2026-03-04'), userpfp: "rob.jpg" },
     { user: "thor", content: "Dark mode UI goes hard. Best CSS I've seen in a while.", date: new Date('2026-03-05'), userpfp: "thor.jpg" },
     { user: "taha", content: "Does anyone know how to fix a 404 error on the profile page?", image: "error.webp", date: Date.now(), userpfp: "rob.jpg" },
-    { user: "nylander", content: "Leafs 2027 is the year. I'm calling it now.", date: new Date('1997-01-09'), userpfp: "nylander.jpg" },
+    { user: "nylander", content: "Leafs 2027 is the year. I'm calling it now.", date: new Date('1967-01-09'), userpfp: "nylander.jpg" },
     { user: "admin", content: "This site is currently in beta mode.", date: Date.now(), userpfp: "default.webp" }
 ];
 
