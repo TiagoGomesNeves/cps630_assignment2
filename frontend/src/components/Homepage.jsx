@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+// Component for the homepage
 function Homepage(){
     return (
         <div className="auth-page">

@@ -1,11 +1,13 @@
 import { useState } from "react";
 
+// Component for changing user username
 function ChangeUser({ username, onUsernameChange }){
     const [name, setName] = useState('');
 
     const changeName = async (e) => {
         e.preventDefault();
 
+        // Make API call to update the username
         try{
             const response = await fetch(`/api/username/${username}`,{
                 method: 'PATCH',

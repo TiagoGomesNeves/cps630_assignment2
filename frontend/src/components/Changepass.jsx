@@ -1,11 +1,14 @@
 import { useState } from "react";
 
+// Component for changing user password
 function ChangePass({ username }){
+    // Track the new password input
     const [pass, setPass] = useState('');
     
     const changePass = async (e) => {
         e.preventDefault();
 
+        // Make API call to update the password for the user
         try{
             const response = await fetch(`/api/password/${username}`,{
                 method: 'PATCH',

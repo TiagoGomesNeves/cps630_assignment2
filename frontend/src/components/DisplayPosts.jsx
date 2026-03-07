@@ -2,6 +2,7 @@ import { useState, useEffect, use} from "react";
 import ShowComments from "./ShowComments";
 import PostMenu from "./PostMenu";
 
+// Component for displaying all posts on the user home page
 function DisplayPosts({refresh, username}) {
 
     const [posts, setPosts] = useState([]);
@@ -38,6 +39,7 @@ function DisplayPosts({refresh, username}) {
     const saveEdit = async () => {
         if (!editPostId) return;
 
+        // Make API call to update the post content
         try {
             const response = await fetch(`/api/posts/${editPostId}`, {
                 method: "PATCH",
@@ -67,6 +69,7 @@ function DisplayPosts({refresh, username}) {
         }
     };
 
+    // Delete a post and update local state
     const deletePost = async (postId) => {
         try {
             const response = await fetch(`/api/posts/${postId}`, { method: "DELETE" });

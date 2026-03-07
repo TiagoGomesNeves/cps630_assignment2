@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// Component for creating a new post
 function CreatePost({ username, onPostCreated }){
     const [content, setcontent] = useState('');
     const [image, setImage] = useState('');
@@ -15,9 +16,12 @@ function CreatePost({ username, onPostCreated }){
         setImage('');
     };
 
+    // Handle the form submission to create a new post
     const create = async (e) =>{
         e.preventDefault();
         let user = null;
+
+        // Get the profile picture for the post
         try{
             const response1 = await fetch(`/api/user?username=${encodeURIComponent(username)}`);
             user = await response1.json();
@@ -30,7 +34,8 @@ function CreatePost({ username, onPostCreated }){
             console.log("Error finding User: ", error);
             return;
         }
-
+        
+        // Make API call to create a new post with the content, image, and user information
         try{
             const formData = new FormData();
             formData.append('user', username.toLowerCase());

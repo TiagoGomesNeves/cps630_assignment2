@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
+// Component for deleting user account
 function DeleteUSer({ username }){
     const navigate = useNavigate();
-
+    
     const deleteAccount = async (e) => {
         e.preventDefault();
         const confrim = window.confirm("Are you sure");
@@ -11,6 +12,7 @@ function DeleteUSer({ username }){
             return;
         }
 
+        // Make API call to delete the user account
         try{
             const response = await fetch(`/api/user/${username}`, {
                 method: "DELETE"

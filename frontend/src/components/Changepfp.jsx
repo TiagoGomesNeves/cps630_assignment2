@@ -1,11 +1,15 @@
 import { useState } from 'react';
 
-
+// Component for changing user profile picture
 function Changepfp({ username }){
+    
     const [image, setImage] = useState('');
 
+    
     const submitPfp = async (e) =>{
         e.preventDefault();
+
+        // Make API call to update the profile picture
         try{
             const formData = new FormData();
             formData.append('user', username.toLowerCase());

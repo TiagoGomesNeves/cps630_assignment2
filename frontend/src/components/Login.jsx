@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Component for the login page
 function Login(){
     const navigate = useNavigate();
 
@@ -8,7 +9,7 @@ function Login(){
         username: '',
         password: ''
     });
-
+    
     const submission = async (e) => {
         e.preventDefault();
 
@@ -17,6 +18,7 @@ function Login(){
             password: formData.password
         };
 
+        // Make API call to verify the user's credentials
         try{
             const response = await fetch(`/api/user/search?username=${encodeURIComponent(user.username)}&password=${encodeURIComponent(user.password)}`);
             const result = await response.json();
