@@ -197,6 +197,7 @@ app.get('/api/posts', async (req, res) => {
     return res.status(200).json(randomPosts);
 });
 
+// Gets a profile picture for a user
 app.get('/api/user/pfp/:username', async (req, res) => {
     try {
         const userName = req.params.username.toLowerCase();
